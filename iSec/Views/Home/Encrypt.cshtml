@@ -1,0 +1,36 @@
+﻿@model iSec.Models.TextTable
+
+@{
+    ViewData["Title"] = "Encrypt Text";
+}
+
+<h1>Encrypt Text</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <form asp-action="Create" asp-controller="Home" method="post">
+            <div class="form-group">
+                <label id="label">Encrypt Text</label>
+                <input type="text" id="entertext" asp-for="EnteredText" class="form-control" placeholder="Enter or paste text">
+            </div>
+            <div class="form-group">
+                <h5>Result</h5>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Encrypted Text</label>
+                        <textarea class="form-control" id="encryptedResult" asp-for="EncryptedText" rows="3" readonly></textarea>
+                    </div>
+                    <div class="col-6">
+                        <label>Decrypted Text</label>
+                        <textarea class="form-control" id="decryptedResult" asp-for="DecryptedText" rows="3" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="encryptText()" class="btn btn-primary">Encrypt Text</button>
+            <button type="submit" id="save" class="btn btn-success" disabled>Save</button>
+        </form>
+    </div>
+</div>
+<br>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

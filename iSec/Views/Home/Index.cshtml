@@ -1,0 +1,56 @@
+﻿@model IEnumerable<iSec.Models.TextTable>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Encrypt and Decrypt Text</h1>
+<br>
+<p>
+    <a asp-action="Encrypt" class="btn btn-primary">Encrypt Text</a>
+</p>
+
+@if (Model == null)
+{
+    <hr>
+    <p class="text-center font-weight-bold">Empty Text</p>
+}
+else { 
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnteredText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EncryptedText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DecryptedText)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnteredText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EncryptedText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DecryptedText)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
