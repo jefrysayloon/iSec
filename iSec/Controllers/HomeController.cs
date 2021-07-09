@@ -40,11 +40,11 @@ namespace iSec.Controllers
         }
 
         [HttpPost]
-        public ActionResult Encrypt(TextTable text)
+        public async Task<IActionResult> Encrypt(TextTable text)
         {
             var res = new List<string>();
-            var encrypted = _text.Encrypt(key, text.EnteredText);
-            var decrypted = _text.Decrypt(key, encrypted);
+            var encrypted = await _text.Encrypt(key, text.EnteredText);
+            var decrypted = await _text.Decrypt(key, encrypted);
             res.Add(encrypted);
             res.Add(decrypted);
             return Json(res);

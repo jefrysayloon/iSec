@@ -10,13 +10,13 @@ namespace iSec.Libraries.TextEncryption
 {
     public interface ITextEncryptionLibrary
     {
-        string Encrypt(string key, string text);
-        string Decrypt(string key, string text);
+        Task<string> Encrypt(string key, string text);
+        Task<string> Decrypt(string key, string text);
     }
 
     public class TextEncryptionLibrary : ITextEncryptionLibrary
     {
-        public string Encrypt(string key, string text)
+        public async Task<string> Encrypt(string key, string text)
         {
             byte[] iv = new byte[16];
             byte[] array;
@@ -34,7 +34,7 @@ namespace iSec.Libraries.TextEncryption
                     {
                         using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
                         {
-                            streamWriter.Write(text);
+                           await streamWriter.WriteAsync(text);
                         }
 
                         array = memoryStream.ToArray();
@@ -45,7 +45,7 @@ namespace iSec.Libraries.TextEncryption
             return Convert.ToBase64String(array);
         }
 
-        public string Decrypt(string key, string text)
+        public async Task<string> Decrypt(string key, string text)
         {
             byte[] iv = new byte[16];
             byte[] buffer = Convert.FromBase64String(text);
@@ -63,7 +63,7 @@ namespace iSec.Libraries.TextEncryption
                     {
                         using (StreamReader streamReader = new StreamReader(cryptoStream))
                         {
-                            return streamReader.ReadToEnd();
+                            return await streamReader.ReadToEndAsync();
                         }
                     }
                 }
